@@ -1,16 +1,17 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectLoader : MonoBehaviour
 {
-    void Start()
+    private void Awake()
     {
         List<Object> objs = Levels.data[SelectedLevel._lvl].objects;
         int difficulty = Levels.data[SelectedLevel._lvl].difficulty;
+        List<GameObject> gameObjects = new List<GameObject>();
         for (int i = 0; i < objs.Count; ++i)
         {
             GameObject temp = Instantiate(Resources.Load(objs[i].name)) as GameObject;
+            gameObjects.Add(temp);
             Quaternion randomRotation = Random.rotation;
             if (difficulty == 0)
             {
@@ -25,5 +26,6 @@ public class ObjectLoader : MonoBehaviour
                 temp.transform.position += randomPosition;
             }
         }
+        Controller.Objects = gameObjects;
     }
 }
