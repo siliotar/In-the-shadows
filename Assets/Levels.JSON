@@ -1,0 +1,152 @@
+{
+  "levels": [
+    {
+      "name": "Big Ears",
+      "difficulty": 0,
+      "objects": [
+        {
+          "name": "elephant",
+          "correctDirections": [
+            {
+              "up": {
+                "x": 0.99,
+                "y": 0.16,
+                "z": 0.04
+              },
+              "forward": {
+                "x": 0.16,
+                "y": -0.99,
+                "z": 0.02
+              }
+            },
+            {
+              "up": {
+                "x": -0.99,
+                "y": 0.16,
+                "z": -0.04
+              },
+              "forward": {
+                "x": -0.16,
+                "y": -0.99,
+                "z": -0.02
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Boiling",
+      "difficulty": 1,
+      "objects": [
+        {
+          "name": "tea_pot",
+          "correctDirections": [
+            {
+              "up": {
+                "x": 0.08,
+                "y": 1.0,
+                "z": 0.0
+              },
+              "forward": {
+                "x": 1.0,
+                "y": -0.08,
+                "z": 0.0
+              }
+            },
+            {
+              "up": {
+                "x": -0.08,
+                "y": 1.0,
+                "z": 0.0
+              },
+              "forward": {
+                "x": -1.0,
+                "y": -0.08,
+                "z": 0.0
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "A Little Planet",
+      "difficulty": 2,
+      "objects": [
+        {
+          "name": "globe_earth",
+          "correctDirections": [
+            {
+              "up": {
+                "x": 1.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "forward": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            },
+            {
+              "up": {
+                "x": -1.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "forward": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+              }
+            }
+          ]
+        },
+        {
+          "name": "globe_base",
+          "correctDirections": [
+            {
+              "up": {
+                "x": 1.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "forward": {
+                "x": 0.0,
+                "y": 1.0,
+                "z": 0.0
+              }
+            },
+            {
+              "up": {
+                "x": -1.0,
+                "y": 0.0,
+                "z": 0.0
+              },
+              "forward": {
+                "x": 0.0,
+                "y": 1.0,
+                "z": 0.0
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Big Ears",
+      "difficulty": 0,
+      "objects": [
+        {}
+      ]
+    },
+    {
+      "name": "Big Ears",
+      "difficulty": 0,
+      "objects": [
+        {}
+      ]
+    }
+  ]
+}
