@@ -5,16 +5,16 @@ public class GameModeMenu : MonoBehaviour
 {
     public void NormalMode()
     {
-        PlayerData.mode = GameMode.Normal;
+        Player.mode = GameMode.Normal;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void TestMode()
     {
-        for (int i = 0; i < PlayerData.Levels.Length; ++i)
-            if (PlayerData.Levels[i] == LevelInfo.Inactive)
-                PlayerData.Levels[i] = LevelInfo.Active;
-        PlayerData.mode = GameMode.Test;
+        for (int i = 0; i < Player.Levels.Length; ++i)
+            if (Player.Levels[i] == LevelInfo.Inactive)
+                Player.Levels[i] = LevelInfo.Active;
+        Player.mode = GameMode.Test;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

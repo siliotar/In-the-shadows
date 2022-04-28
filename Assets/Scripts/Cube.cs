@@ -22,7 +22,7 @@ public class Cube : MonoBehaviour
     {
         LevelNameUI = GameObject.FindGameObjectWithTag("LevelName").GetComponent<TMP_Text>();
         _renderer = gameObject.GetComponent<Renderer>();
-        if (PlayerData.Levels[LevelID] == LevelInfo.Inactive)
+        if (Player.Levels[LevelID] == LevelInfo.Inactive)
         {
             _active = false;
             _renderer.material = Inactive;
@@ -33,7 +33,7 @@ public class Cube : MonoBehaviour
     {
         if (_active && _selectedLevel != LevelID)
         {
-            if (PlayerData.Levels[LevelID] == LevelInfo.Solved)
+            if (Player.Levels[LevelID] == LevelInfo.Solved)
                 _renderer.material = Solved;
             else
                 _renderer.material = Base;
@@ -46,12 +46,15 @@ public class Cube : MonoBehaviour
         {
             SelectedLevel._lvl = LevelID;
             if (_selectedLevel == LevelID)
+            {
+                _selectedLevel = -1;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            }
             else
             {
                 LevelNameUI.text = Levels.data[LevelID].name;
                 _selectedLevel = LevelID;
-                if (PlayerData.Levels[LevelID] == LevelInfo.Solved)
+                if (Player.Levels[LevelID] == LevelInfo.Solved)
                     _renderer.material = SelectedSolved;
                 else
                     _renderer.material = SelectedUnsolved;

@@ -138,14 +138,70 @@
       "name": "Big Ears",
       "difficulty": 0,
       "objects": [
-        {}
+        {
+          "name": "elephant",
+          "correctDirections": [
+            {
+              "up": {
+                "x": 0.99,
+                "y": 0.16,
+                "z": 0.04
+              },
+              "forward": {
+                "x": 0.16,
+                "y": -0.99,
+                "z": 0.02
+              }
+            },
+            {
+              "up": {
+                "x": -0.99,
+                "y": 0.16,
+                "z": -0.04
+              },
+              "forward": {
+                "x": -0.16,
+                "y": -0.99,
+                "z": -0.02
+              }
+            }
+          ]
+        }
       ]
     },
     {
       "name": "Big Ears",
       "difficulty": 0,
       "objects": [
-        {}
+        {
+          "name": "elephant",
+          "correctDirections": [
+            {
+              "up": {
+                "x": 0.99,
+                "y": 0.16,
+                "z": 0.04
+              },
+              "forward": {
+                "x": 0.16,
+                "y": -0.99,
+                "z": 0.02
+              }
+            },
+            {
+              "up": {
+                "x": -0.99,
+                "y": 0.16,
+                "z": -0.04
+              },
+              "forward": {
+                "x": -0.16,
+                "y": -0.99,
+                "z": -0.02
+              }
+            }
+          ]
+        }
       ]
     }
   ]

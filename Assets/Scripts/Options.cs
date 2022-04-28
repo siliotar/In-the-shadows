@@ -1,16 +1,20 @@
 using UnityEngine;
-using System;
+using UnityEngine.UI;
 
 public class Options : MonoBehaviour
 {
+    public Slider VolumeSlider;
+
     public void SetVolume(float value)
     {
-        PlayerData.MusicVolume = value;
+        Player.MusicVolume = value;
+        SaveSystem.SavePlayer();
     }
 
     public void ResetProgress()
     {
-        Array.Fill(PlayerData.Levels, LevelInfo.Inactive);
-        PlayerData.Levels[0] = LevelInfo.Active;
+        SaveSlot.ResetStats();
+        SaveSystem.SavePlayer();
+        VolumeSlider.value = Player.MusicVolume;
     }
 }

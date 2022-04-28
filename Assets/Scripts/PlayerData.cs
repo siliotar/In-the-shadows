@@ -12,9 +12,18 @@ public enum GameMode : int
     Test = 2
 }
 
-public class PlayerData
+public static class Player
 {
     public static float MusicVolume = 0.5f;
     public static LevelInfo[] Levels;
     public static GameMode mode;
+    public static int SaveSlot;
+}
+
+[System.Serializable]
+public class PlayerData
+{
+    public float MusicVolume = 0.5f;
+    public LevelInfo[] Levels;
+    public GameMode mode;
 }

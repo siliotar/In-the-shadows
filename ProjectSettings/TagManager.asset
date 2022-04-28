@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Object
   - LevelName
+  - Menu
+  - EndMenu
   layers:
   - Default
   - TransparentFX

@@ -1,5 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Controller : MonoBehaviour
 {
@@ -59,16 +61,20 @@ public class Controller : MonoBehaviour
                 break;
             else if (i + 1 == _tempLevel.objects.Count)
             {
+                Player.Levels[SelectedLevel._lvl] = LevelInfo.Solved;
+                if (SelectedLevel._lvl + 1 < Player.Levels.Length && Player.Levels[SelectedLevel._lvl + 1] == LevelInfo.Inactive)
+                    Player.Levels[SelectedLevel._lvl + 1] = LevelInfo.Active;
+                SaveSystem.SavePlayer();
                 _solved = true;
                 _barycenter = CalculateBarycenter();
+                StartCoroutine(BackToMenu());
             }
-
         }
     }
 
     private void ProcessInput()
     {
-        if (Input.GetMouseButton(0))
+        if (!InGameMenu.Active() && Input.GetMouseButton(0))
         {
             if (!_pressed)
             {
@@ -81,13 +87,13 @@ public class Controller : MonoBehaviour
             mouseDiff.x /= Screen.width;
             mouseDiff.y /= Screen.height;
             if (_tempLevel.difficulty == 0 ||
-                !(Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl) ||
-                Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) ||
+                !(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) ||
                 Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt)))
                 TempObject.transform.Rotate(0, mouseDiff.x * Time.deltaTime * 2000.0f, 0, Space.World);
             if (_tempLevel.difficulty > 0)
             {
-                if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
+                if (!(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) ||
+                    Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt)))
                     TempObject.transform.Rotate(0, 0, -mouseDiff.y * Time.deltaTime * 2000.0f, Space.World);
                 else if (Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt))
                     TempObject.transform.Rotate(mouseDiff.x * Time.deltaTime * 2000.0f, 0, 0, Space.World);
@@ -115,6 +121,8 @@ public class Controller : MonoBehaviour
         }
         else
             _pressed = false;
+        if (Input.GetKeyUp(KeyCode.Escape))
+            InGameMenu.SetActive(!InGameMenu.Active());
     }
 
     private void Update()
@@ -142,5 +150,11 @@ public class Controller : MonoBehaviour
                 ++i;
             }
         }
+    }
+
+    private IEnumerator BackToMenu()
+    {
+        yield return new WaitForSeconds(2);
+        InGameMenu.SetActive(true);
     }
 }

@@ -7,7 +7,7 @@ public class MainMenu : MonoBehaviour
 
     public void PlayGame()
     {
-        if (PlayerData.mode != GameMode.None)
+        if (Player.mode != GameMode.None)
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         else
         {
