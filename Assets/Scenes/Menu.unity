@@ -452,6 +452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92f91ad54a332bd478c8c09276e365ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSource: {fileID: 65435340}
   MenuMusic: {fileID: 8300000, guid: 8e581913301fae74196ea7d510d1f6e0, type: 3}
   GameMusic: {fileID: 8300000, guid: 07e9a6eaefcfc45489281a7fded898c5, type: 3}
   audioMixer: {fileID: 24100000, guid: 12b766da5a310e64686a5ff362774445, type: 2}

@@ -25,8 +25,7 @@ public class AudioController : MonoBehaviour
 
     private void ChangeMusic(AudioClip clip)
     {
-        float tempVolume;
-        audioMixer.GetFloat(_volumeParameter, out tempVolume);
+        audioMixer.GetFloat(_volumeParameter, out float tempVolume);
         if (tempVolume <= -80.0f)
         {
             audioSource.clip = clip;
