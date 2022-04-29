@@ -12,7 +12,6 @@ public static class SaveSystem
         PlayerData data = new PlayerData();
         data.Levels = Player.Levels;
         data.mode = Player.mode;
-        data.MusicVolume = Player.MusicVolume;
         formatter.Serialize(stream, data);
         stream.Close();
     }
