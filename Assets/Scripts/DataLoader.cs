@@ -32,6 +32,13 @@ public class DataLoader : MonoBehaviour
         }
         string json = System.IO.File.ReadAllText("Assets/Levels.JSON");
         LevelsData levels = JsonUtility.FromJson<LevelsData>(json);
+        foreach (LevelData data in levels.levels)
+        {
+            data.additiontalCorrectRotations.Add(Vector3.zero);
+            foreach (Object obj in data.objects)
+                if (obj.mass == 0.0f)
+                    obj.mass = 1.0f;
+        }
         Levels.data = new List<LevelData>();
         Levels.data.AddRange(levels.levels);
     }

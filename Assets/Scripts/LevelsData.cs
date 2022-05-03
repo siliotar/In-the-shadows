@@ -2,17 +2,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class DirectionVectors
-{
-    public Vector3 up;
-    public Vector3 forward;
-}
-
-[System.Serializable]
 public class Object
 {
     public string name;
-    public List<DirectionVectors> correctDirections;
+    public Vector3 position;
+    public bool mirrorTolerance;
+    public bool freeUp;
+    public float mass;
 }
 
 [System.Serializable]
@@ -21,6 +17,7 @@ public class LevelData
     public string name;
     public int difficulty;
     public List<Object> objects;
+    public List<Vector3> additiontalCorrectRotations;
 }
 
 [System.Serializable]

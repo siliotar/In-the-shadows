@@ -10,7 +10,8 @@ public class Controller : MonoBehaviour
     private LevelData _tempLevel;
     private bool _solved = false;
     private Vector3 _barycenter;
-    private DirectionVectors[] _correctRotations;
+    private float _toleranceAlpha = 8.0f;
+    private Quaternion[] _correctRotations;
 
     public static GameObject TempObject;
     public static List<GameObject> Objects;
@@ -22,51 +23,63 @@ public class Controller : MonoBehaviour
         _objectCenter.y = 3.3f;
         _objectCenter.z = 0.0f;
         _tempLevel = Levels.data[SelectedLevel._lvl];
-        _correctRotations = new DirectionVectors[Objects.Count];
+        _correctRotations = new Quaternion[_tempLevel.objects.Count];
     }
 
     private Vector3 CalculateBarycenter()
     {
         Vector3 result = Vector3.zero;
-        foreach (GameObject tempObject in Objects)
-            result += tempObject.transform.position;
-        result /= Objects.Count;
+        float massSumm = 0.0f;
+        for (int i = 0; i < Objects.Count; ++i)
+        {
+            result += Objects[i].transform.position * _tempLevel.objects[i].mass;
+            massSumm += _tempLevel.objects[i].mass;
+        }
+        result /= massSumm;
         return result;
     }
 
     private void CheckSolve()
     {
-        for (int i = 0; i < _tempLevel.objects.Count; ++i)
+        if (_tempLevel.objects.Count != 1)
         {
-            Object tempObjectData = _tempLevel.objects[i];
-            GameObject tempGameObject = Objects[i];
-            bool isCorrect = false;
-            foreach (DirectionVectors vectors in tempObjectData.correctDirections)
+            Vector3 diffPos = Objects[0].transform.position - (_objectCenter + _tempLevel.objects[0].position);
+            for (int i = 1; i < _tempLevel.objects.Count; ++i)
             {
-                // Check correct angle
-                if ((vectors.forward == Vector3.zero || Vector3.Angle(vectors.forward, tempGameObject.transform.forward) <= 8.0f) &&
-                    (vectors.up == Vector3.zero || Vector3.Angle(vectors.up, tempGameObject.transform.up) <= 8.0f))
+                Vector3 tempDiffPos = Objects[i].transform.position - (_objectCenter + _tempLevel.objects[i].position);
+                if ((diffPos - tempDiffPos).sqrMagnitude > 0.01)
+                    return;
+            }
+        }
+        foreach (Vector3 rotation in _tempLevel.additiontalCorrectRotations)
+        {
+            Quaternion quatRotation = Quaternion.Euler(rotation);
+            for (int i = 0; i < _tempLevel.objects.Count; ++i)
+            {
+                Object tempObjectData = _tempLevel.objects[i];
+                GameObject tempGameObject = Objects[i];
+                Vector3 up = quatRotation * Vector3.up;
+                if (tempObjectData.freeUp || Vector3.Angle(up, tempGameObject.transform.up) <= _toleranceAlpha)
                 {
-                    // Check correct position
-                    if (i == 0 || ((tempGameObject.transform.position - Objects[i - 1].transform.position).sqrMagnitude < 0.01))
-                    {
-                        isCorrect = true;
-                        _correctRotations[i] = vectors;
+                    Vector3 right = quatRotation * Vector3.right;
+                    Vector3 left = quatRotation * Vector3.left;
+                    if (Vector3.Angle(right, tempGameObject.transform.right) <= _toleranceAlpha)
+                        _correctRotations[i] = Quaternion.Euler(rotation);
+                    else if (tempObjectData.mirrorTolerance && Vector3.Angle(left, tempGameObject.transform.right) <= _toleranceAlpha)
+                        _correctRotations[i] = Quaternion.Euler(rotation) * Quaternion.Euler(0.0f, 180.0f, 0.0f);
+                    else
                         break;
+                    if (i + 1 >= _tempLevel.objects.Count)
+                    {
+                        Player.Levels[SelectedLevel._lvl] = LevelInfo.Solved;
+                        if (SelectedLevel._lvl + 1 < Player.Levels.Length && Player.Levels[SelectedLevel._lvl + 1] == LevelInfo.Inactive)
+                            Player.Levels[SelectedLevel._lvl + 1] = LevelInfo.Active;
+                        SaveSystem.SavePlayer();
+                        _solved = true;
+                        _barycenter = CalculateBarycenter();
+                        StartCoroutine(BackToMenu());
                     }
                 }
-            }
-            if (!isCorrect)
-                break;
-            else if (i + 1 == _tempLevel.objects.Count)
-            {
-                Player.Levels[SelectedLevel._lvl] = LevelInfo.Solved;
-                if (SelectedLevel._lvl + 1 < Player.Levels.Length && Player.Levels[SelectedLevel._lvl + 1] == LevelInfo.Inactive)
-                    Player.Levels[SelectedLevel._lvl + 1] = LevelInfo.Active;
-                SaveSystem.SavePlayer();
-                _solved = true;
-                _barycenter = CalculateBarycenter();
-                StartCoroutine(BackToMenu());
             }
         }
     }
@@ -136,16 +149,9 @@ public class Controller : MonoBehaviour
             foreach (GameObject tempObject in Objects)
             {
                 // Correct position
-                tempObject.transform.position = Vector3.MoveTowards(tempObject.transform.position, _barycenter, 0.1f * Time.deltaTime);
+                tempObject.transform.position = Vector3.MoveTowards(tempObject.transform.position, _barycenter + _tempLevel.objects[i].position, 0.1f * Time.deltaTime);
                 // Correct rotation
-                Vector3 up, forward;
-                up = tempObject.transform.up;
-                forward = tempObject.transform.forward;
-                if (_correctRotations[i].up != Vector3.zero)
-                    up = Vector3.MoveTowards(tempObject.transform.up, _correctRotations[i].up, 0.1f * Time.deltaTime);
-                if (_correctRotations[i].forward != Vector3.zero)
-                    forward = Vector3.MoveTowards(tempObject.transform.forward, _correctRotations[i].forward, 0.1f * Time.deltaTime);
-                tempObject.transform.rotation = Quaternion.LookRotation(forward, up);
+                tempObject.transform.rotation = Quaternion.Lerp(tempObject.transform.rotation, _correctRotations[i], Time.deltaTime);
                 ++i;
             }
         }

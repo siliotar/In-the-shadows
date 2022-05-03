@@ -6,32 +6,7 @@
       "objects": [
         {
           "name": "elephant",
-          "correctDirections": [
-            {
-              "up": {
-                "x": 0.99,
-                "y": 0.16,
-                "z": 0.04
-              },
-              "forward": {
-                "x": 0.16,
-                "y": -0.99,
-                "z": 0.02
-              }
-            },
-            {
-              "up": {
-                "x": -0.99,
-                "y": 0.16,
-                "z": -0.04
-              },
-              "forward": {
-                "x": -0.16,
-                "y": -0.99,
-                "z": -0.02
-              }
-            }
-          ]
+          "mirrorTolerance": true
         }
       ]
     },
@@ -41,32 +16,7 @@
       "objects": [
         {
           "name": "tea_pot",
-          "correctDirections": [
-            {
-              "up": {
-                "x": 0.08,
-                "y": 1.0,
-                "z": 0.0
-              },
-              "forward": {
-                "x": 1.0,
-                "y": -0.08,
-                "z": 0.0
-              }
-            },
-            {
-              "up": {
-                "x": -0.08,
-                "y": 1.0,
-                "z": 0.0
-              },
-              "forward": {
-                "x": -1.0,
-                "y": -0.08,
-                "z": 0.0
-              }
-            }
-          ]
+          "mirrorTolerance": true
         }
       ]
     },
@@ -76,61 +26,12 @@
       "objects": [
         {
           "name": "globe_earth",
-          "correctDirections": [
-            {
-              "up": {
-                "x": 1.0,
-                "y": 0.0,
-                "z": 0.0
-              },
-              "forward": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-              }
-            },
-            {
-              "up": {
-                "x": -1.0,
-                "y": 0.0,
-                "z": 0.0
-              },
-              "forward": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-              }
-            }
-          ]
+          "mirrorTolerance": true,
+          "freeUp": true
         },
         {
           "name": "globe_base",
-          "correctDirections": [
-            {
-              "up": {
-                "x": 1.0,
-                "y": 0.0,
-                "z": 0.0
-              },
-              "forward": {
-                "x": 0.0,
-                "y": 1.0,
-                "z": 0.0
-              }
-            },
-            {
-              "up": {
-                "x": -1.0,
-                "y": 0.0,
-                "z": 0.0
-              },
-              "forward": {
-                "x": 0.0,
-                "y": 1.0,
-                "z": 0.0
-              }
-            }
-          ]
+          "mirrorTolerance": true
         }
       ]
     },
@@ -140,72 +41,51 @@
       "objects": [
         {
           "name": "bulldog_butt",
-          "correctDirections": [
-            {
-              "up": {
-                "x": 0.0,
-                "y": 1.0,
-                "z": 0.0
-              },
-              "forward": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 1.0
-              }
-            }
-          ]
+          "mirrorTolerance": false
         },
         {
           "name": "bulldog_head",
-          "correctDirections": [
-            {
-              "up": {
-                "x": 0.0,
-                "y": 1.0,
-                "z": 0.0
-              },
-              "forward": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 1.0
-              }
-            }
-          ]
+          "mirrorTolerance": false
+        }
+      ],
+      "additiontalCorrectRotations": [
+        {
+          "x": 0.0,
+          "y": 180.0,
+          "z": 0.0
         }
       ]
     },
     {
-      "name": "Big Ears",
-      "difficulty": 0,
+      "name": "Best Place In The World",
+      "difficulty": 2,
       "objects": [
         {
-          "name": "elephant",
-          "correctDirections": [
-            {
-              "up": {
-                "x": 0.99,
-                "y": 0.16,
-                "z": 0.04
-              },
-              "forward": {
-                "x": 0.16,
-                "y": -0.99,
-                "z": 0.02
-              }
-            },
-            {
-              "up": {
-                "x": -0.99,
-                "y": 0.16,
-                "z": -0.04
-              },
-              "forward": {
-                "x": -0.16,
-                "y": -0.99,
-                "z": -0.02
-              }
-            }
-          ]
+          "name": "school_ecole",
+          "position": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -0.225
+          },
+          "mirrorTolerance": false,
+          "mass": 3.0
+        },
+        {
+          "name": "21_42",
+          "position": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.675
+          },
+          "mirrorTolerance": false,
+          "mass": 1.0
+        }
+      ],
+      "additiontalCorrectRotations": [
+        {
+          "x": 0.0,
+          "y": 90.0,
+          "z": 0.0
         }
       ]
     }
