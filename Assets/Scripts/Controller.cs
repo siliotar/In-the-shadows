@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Controller : MonoBehaviour
 {
-    private Vector3 _prevMousePos;
     private Vector3 _objectCenter;
     private bool _pressed = false;
     private LevelData _tempLevel;
@@ -19,7 +18,7 @@ public class Controller : MonoBehaviour
     private void Start()
     {
         TempObject = GameObject.FindGameObjectWithTag("Object");
-        _objectCenter.x = -3.0f;
+        _objectCenter.x = -2.5f;
         _objectCenter.y = 3.3f;
         _objectCenter.z = 0.0f;
         _tempLevel = Levels.data[SelectedLevel._lvl];
@@ -91,32 +90,30 @@ public class Controller : MonoBehaviour
             if (!_pressed)
             {
                 _pressed = true;
-                _prevMousePos = Input.mousePosition;
                 return;
             }
-            Vector3 tempMousePos = Input.mousePosition;
-            Vector3 mouseDiff = _prevMousePos - tempMousePos;
-            mouseDiff.x /= Screen.width;
-            mouseDiff.y /= Screen.height;
+            float rotationSpeed = 48.0f;
+            float deltaX = Input.GetAxis("Mouse X");
+            float deltaY = Input.GetAxis("Mouse Y");
             if (_tempLevel.difficulty == 0 ||
                 !(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) ||
                 Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt)))
-                TempObject.transform.Rotate(0, mouseDiff.x * Time.deltaTime * 2000.0f, 0, Space.World);
+                TempObject.transform.Rotate(0, -deltaX * rotationSpeed * Time.deltaTime, 0, Space.World);
             if (_tempLevel.difficulty > 0)
             {
                 if (!(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) ||
                     Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt)))
-                    TempObject.transform.Rotate(0, 0, -mouseDiff.y * Time.deltaTime * 2000.0f, Space.World);
+                    TempObject.transform.Rotate(0, 0, deltaY * rotationSpeed * Time.deltaTime, Space.World);
                 else if (Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt))
-                    TempObject.transform.Rotate(mouseDiff.x * Time.deltaTime * 2000.0f, 0, 0, Space.World);
+                    TempObject.transform.Rotate(-deltaX * rotationSpeed * Time.deltaTime, 0, 0, Space.World);
                 else if (_tempLevel.difficulty > 1)
                 {
                     if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
                     {
                         Vector3 translation;
                         translation.x = 0.0f;
-                        translation.y = -mouseDiff.y * Time.deltaTime * 16.0f;
-                        translation.z = -mouseDiff.x * Time.deltaTime * 16.0f;
+                        translation.y = deltaY * 0.5f * Time.deltaTime;
+                        translation.z = deltaX * 0.5f * Time.deltaTime;
                         TempObject.transform.Translate(translation, Space.World);
                         Vector3 diff = TempObject.transform.position - _objectCenter;
                         if (diff.sqrMagnitude > 1.0f)
@@ -129,7 +126,6 @@ public class Controller : MonoBehaviour
             }
             // Check that the level is completed
             CheckSolve();
-            _prevMousePos = tempMousePos;
         }
         else
             _pressed = false;
