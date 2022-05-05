@@ -79,6 +79,8 @@ public class Controller : MonoBehaviour
                         StartCoroutine(BackToMenu());
                     }
                 }
+                else
+                    break;
             }
         }
     }
