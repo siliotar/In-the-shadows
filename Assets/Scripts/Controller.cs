@@ -96,19 +96,19 @@ public class Controller : MonoBehaviour
             float deltaX = Input.GetAxis("Mouse X");
             float deltaY = Input.GetAxis("Mouse Y");
             if (_tempLevel.difficulty == 0 ||
-                !(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) ||
-                Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt)))
+                !(Input.GetKey(ControlSettings.keys[ControlSettings.moveParameter]) ||
+                Input.GetKey(ControlSettings.keys[ControlSettings.rollParameter])))
                 TempObject.transform.Rotate(0, -deltaX * rotationSpeed * Time.deltaTime, 0, Space.World);
             if (_tempLevel.difficulty > 0)
             {
-                if (!(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) ||
-                    Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt)))
+                if (!(Input.GetKey(ControlSettings.keys[ControlSettings.moveParameter]) ||
+                    Input.GetKey(ControlSettings.keys[ControlSettings.rollParameter])))
                     TempObject.transform.Rotate(0, 0, deltaY * rotationSpeed * Time.deltaTime, Space.World);
-                else if (Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt))
+                else if (Input.GetKey(ControlSettings.keys[ControlSettings.rollParameter]))
                     TempObject.transform.Rotate(-deltaX * rotationSpeed * Time.deltaTime, 0, 0, Space.World);
                 else if (_tempLevel.difficulty > 1)
                 {
-                    if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+                    if (Input.GetKey(ControlSettings.keys[ControlSettings.moveParameter]))
                     {
                         Vector3 translation;
                         translation.x = 0.0f;
@@ -145,9 +145,11 @@ public class Controller : MonoBehaviour
             foreach (GameObject tempObject in Objects)
             {
                 // Correct position
-                tempObject.transform.position = Vector3.MoveTowards(tempObject.transform.position, _barycenter + _tempLevel.objects[i].position, 0.1f * Time.deltaTime);
+                Vector3 position = Vector3.MoveTowards(tempObject.transform.position, _barycenter + _tempLevel.objects[i].position, 0.1f * Time.deltaTime);
                 // Correct rotation
-                tempObject.transform.rotation = Quaternion.Lerp(tempObject.transform.rotation, _correctRotations[i], Time.deltaTime);
+                Quaternion rotation = Quaternion.Lerp(tempObject.transform.rotation, _correctRotations[i], Time.deltaTime);
+
+                tempObject.transform.SetPositionAndRotation(position, rotation);
                 ++i;
             }
         }

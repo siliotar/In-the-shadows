@@ -3,15 +3,18 @@ using UnityEngine.SceneManagement;
 
 public class InGameMenu : MonoBehaviour
 {
-    public GameObject NextButton;
+    private static GameObject NextButton = null;
     private static GameObject Menu = null;
     private static bool _isActive;
 
     private void Start()
     {
         _isActive = false;
-        if (SelectedLevel._lvl + 1 < Player.Levels.Length && Player.Levels[SelectedLevel._lvl + 1] != LevelInfo.Inactive)
-            NextButton.SetActive(true);
+        if (NextButton == null)
+        {
+            NextButton = GameObject.Find("NextButton");
+            NextButton.SetActive(false);
+        }
         if (Menu == null)
         {
             Menu = GameObject.Find("Menu");
@@ -21,6 +24,8 @@ public class InGameMenu : MonoBehaviour
 
     public static void SetActive(bool value)
     {
+        if (SelectedLevel._lvl + 1 < Player.Levels.Length && Player.Levels[SelectedLevel._lvl + 1] != LevelInfo.Inactive)
+            NextButton.SetActive(true);
         Menu.SetActive(value);
         _isActive = value;
     }
