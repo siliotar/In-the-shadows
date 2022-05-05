@@ -96,19 +96,19 @@ public class Controller : MonoBehaviour
             float deltaX = Input.GetAxis("Mouse X");
             float deltaY = Input.GetAxis("Mouse Y");
             if (_tempLevel.difficulty == 0 ||
-                !(Input.GetKey(ControlSettings.keys[ControlSettings.moveParameter]) ||
-                Input.GetKey(ControlSettings.keys[ControlSettings.rollParameter])))
+                !(Input.GetKey(Controls.keys[Controls.moveParameter]) ||
+                Input.GetKey(Controls.keys[Controls.rollParameter])))
                 TempObject.transform.Rotate(0, -deltaX * rotationSpeed * Time.deltaTime, 0, Space.World);
             if (_tempLevel.difficulty > 0)
             {
-                if (!(Input.GetKey(ControlSettings.keys[ControlSettings.moveParameter]) ||
-                    Input.GetKey(ControlSettings.keys[ControlSettings.rollParameter])))
+                if (!(Input.GetKey(Controls.keys[Controls.moveParameter]) ||
+                    Input.GetKey(Controls.keys[Controls.rollParameter])))
                     TempObject.transform.Rotate(0, 0, deltaY * rotationSpeed * Time.deltaTime, Space.World);
-                else if (Input.GetKey(ControlSettings.keys[ControlSettings.rollParameter]))
+                else if (Input.GetKey(Controls.keys[Controls.rollParameter]))
                     TempObject.transform.Rotate(-deltaX * rotationSpeed * Time.deltaTime, 0, 0, Space.World);
                 else if (_tempLevel.difficulty > 1)
                 {
-                    if (Input.GetKey(ControlSettings.keys[ControlSettings.moveParameter]))
+                    if (Input.GetKey(Controls.keys[Controls.moveParameter]))
                     {
                         Vector3 translation;
                         translation.x = 0.0f;

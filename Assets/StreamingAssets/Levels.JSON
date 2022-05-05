@@ -1,0 +1,93 @@
+{
+  "levels": [
+    {
+      "name": "Big Ears",
+      "difficulty": 0,
+      "objects": [
+        {
+          "name": "elephant",
+          "mirrorTolerance": true
+        }
+      ]
+    },
+    {
+      "name": "Boiling",
+      "difficulty": 1,
+      "objects": [
+        {
+          "name": "tea_pot",
+          "mirrorTolerance": true
+        }
+      ]
+    },
+    {
+      "name": "A Little Planet",
+      "difficulty": 2,
+      "objects": [
+        {
+          "name": "globe_earth",
+          "mirrorTolerance": true,
+          "freeUp": true
+        },
+        {
+          "name": "globe_base",
+          "mirrorTolerance": true
+        }
+      ]
+    },
+    {
+      "name": "Woof",
+      "difficulty": 2,
+      "objects": [
+        {
+          "name": "bulldog_butt",
+          "mirrorTolerance": false
+        },
+        {
+          "name": "bulldog_head",
+          "mirrorTolerance": false
+        }
+      ],
+      "additiontalCorrectRotations": [
+        {
+          "x": 0.0,
+          "y": 180.0,
+          "z": 0.0
+        }
+      ]
+    },
+    {
+      "name": "Best Place In The World",
+      "difficulty": 2,
+      "objects": [
+        {
+          "name": "school_ecole",
+          "position": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -0.225
+          },
+          "mirrorTolerance": false,
+          "mass": 3.0
+        },
+        {
+          "name": "21_42",
+          "position": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.675
+          },
+          "mirrorTolerance": false,
+          "mass": 1.0
+        }
+      ],
+      "additiontalCorrectRotations": [
+        {
+          "x": 0.0,
+          "y": 90.0,
+          "z": 0.0
+        }
+      ]
+    }
+  ]
+}

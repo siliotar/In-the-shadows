@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,7 +29,7 @@ public class DataLoader : MonoBehaviour
                     text.text = data.mode.ToString() + "\n\n" + solved + "/" + data.Levels.Length;
             }
         }
-        string json = System.IO.File.ReadAllText("Assets/Levels.JSON");
+        string json = System.IO.File.ReadAllText(Application.streamingAssetsPath + "/Levels.JSON");
         LevelsData levels = JsonUtility.FromJson<LevelsData>(json);
         foreach (LevelData data in levels.levels)
         {
@@ -39,5 +40,10 @@ public class DataLoader : MonoBehaviour
         }
         Levels.data = new List<LevelData>();
         Levels.data.AddRange(levels.levels);
+        Controls.keys = new Dictionary<string, KeyCode>();
+        KeyCode moveCode = (KeyCode)PlayerPrefs.GetInt(Controls.moveParameter, Convert.ToInt32(KeyCode.LeftShift));
+        KeyCode rollCode = (KeyCode)PlayerPrefs.GetInt(Controls.rollParameter, Convert.ToInt32(KeyCode.LeftAlt));
+        Controls.keys.Add(Controls.moveParameter, moveCode);
+        Controls.keys.Add(Controls.rollParameter, rollCode);
     }
 }
