@@ -45,5 +45,6 @@ public class DataLoader : MonoBehaviour
         KeyCode rollCode = (KeyCode)PlayerPrefs.GetInt(Controls.rollParameter, Convert.ToInt32(KeyCode.LeftAlt));
         Controls.keys.Add(Controls.moveParameter, moveCode);
         Controls.keys.Add(Controls.rollParameter, rollCode);
+        Controls.mouseSensitivity = PlayerPrefs.GetFloat(Controls.sensitivityParameter, 50.0f);
     }
 }

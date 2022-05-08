@@ -94,28 +94,27 @@ public class Controller : MonoBehaviour
                 _pressed = true;
                 return;
             }
-            float rotationSpeed = 48.0f;
             float deltaX = Input.GetAxis("Mouse X");
             float deltaY = Input.GetAxis("Mouse Y");
             if (_tempLevel.difficulty == 0 ||
                 !(Input.GetKey(Controls.keys[Controls.moveParameter]) ||
                 Input.GetKey(Controls.keys[Controls.rollParameter])))
-                TempObject.transform.Rotate(0, -deltaX * rotationSpeed * Time.deltaTime, 0, Space.World);
+                TempObject.transform.Rotate(0, -deltaX * Controls.mouseSensitivity * Time.deltaTime, 0, Space.World);
             if (_tempLevel.difficulty > 0)
             {
                 if (!(Input.GetKey(Controls.keys[Controls.moveParameter]) ||
                     Input.GetKey(Controls.keys[Controls.rollParameter])))
-                    TempObject.transform.Rotate(0, 0, deltaY * rotationSpeed * Time.deltaTime, Space.World);
+                    TempObject.transform.Rotate(0, 0, deltaY * Controls.mouseSensitivity * Time.deltaTime, Space.World);
                 else if (Input.GetKey(Controls.keys[Controls.rollParameter]))
-                    TempObject.transform.Rotate(-deltaX * rotationSpeed * Time.deltaTime, 0, 0, Space.World);
+                    TempObject.transform.Rotate(-deltaX * Controls.mouseSensitivity * Time.deltaTime, 0, 0, Space.World);
                 else if (_tempLevel.difficulty > 1)
                 {
                     if (Input.GetKey(Controls.keys[Controls.moveParameter]))
                     {
                         Vector3 translation;
                         translation.x = 0.0f;
-                        translation.y = deltaY * 0.5f * Time.deltaTime;
-                        translation.z = deltaX * 0.5f * Time.deltaTime;
+                        translation.y = deltaY * Controls.mouseSensitivity * 0.01f * Time.deltaTime;
+                        translation.z = deltaX * Controls.mouseSensitivity * 0.01f * Time.deltaTime;
                         TempObject.transform.Translate(translation, Space.World);
                         Vector3 diff = TempObject.transform.position - _objectCenter;
                         if (diff.sqrMagnitude > 1.0f)
@@ -131,7 +130,7 @@ public class Controller : MonoBehaviour
         }
         else
             _pressed = false;
-        if (Input.GetKeyUp(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
             InGameMenu.SetActive(!InGameMenu.Active());
     }
 

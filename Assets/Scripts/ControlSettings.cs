@@ -8,6 +8,7 @@ public class ControlSettings : MonoBehaviour
     private GameObject _currentKey;
 
     public TMP_Text move, roll;
+    public Slider SensitivitySlider;
 
     private Color32 _normal = new Color32(255, 255, 255, 0);
     private Color32 _highlighted = new Color32(255, 255, 255, 60);
@@ -21,17 +22,25 @@ public class ControlSettings : MonoBehaviour
         _currentKey.GetComponent<Image>().color = _highlighted;
     }
 
+    public void SetSensitivity(float value)
+    {
+        Controls.mouseSensitivity = value;
+    }
+
     private void OnDisable()
     {
         PlayerPrefs.SetInt(Controls.moveParameter, Convert.ToInt32(Controls.keys[Controls.moveParameter]));
         PlayerPrefs.SetInt(Controls.rollParameter, Convert.ToInt32(Controls.keys[Controls.rollParameter]));
-        _currentKey.GetComponent<Image>().color = _normal;
+        PlayerPrefs.SetFloat(Controls.sensitivityParameter, Controls.mouseSensitivity);
+        if (_currentKey != null)
+            _currentKey.GetComponent<Image>().color = _normal;
     }
 
     void Start()
     {
         move.text = Controls.keys[Controls.moveParameter].ToString();
         roll.text = Controls.keys[Controls.rollParameter].ToString();
+        SensitivitySlider.value = Controls.mouseSensitivity;
     }
 
     private void OnGUI()
