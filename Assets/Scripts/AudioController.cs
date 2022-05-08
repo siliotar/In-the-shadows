@@ -9,7 +9,7 @@ public class AudioController : MonoBehaviour
     public AudioClip GameMusic;
     public AudioMixer audioMixer;
 
-    private string _volumeParameter = "volume";
+    private const string _volumeParameter = "volume";
     private bool _gameMusic = false;
 
     private void SetVolume(float value)

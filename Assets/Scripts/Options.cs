@@ -13,8 +13,8 @@ public class Options : MonoBehaviour
     public Toggle FullscreenToggle;
     public TMP_Dropdown ResolutionDropdown;
 
-    private string _volumeParameter = "volume";
-    private string _fullscreenParameter = "isFullscreen";
+    private const string _volumeParameter = "volume";
+    private const string _fullscreenParameter = "isFullscreen";
 
     private Resolution[] _resolutions;
 
